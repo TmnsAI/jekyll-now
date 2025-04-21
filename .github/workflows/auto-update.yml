@@ -1,0 +1,34 @@
+name: Auto-Update Content
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: '0 0 * * *'  # Runs every day at midnight
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: Install Dependencies
+        run: |
+          gem install jekyll bundler
+          bundle install
+
+      - name: Build the Jekyll Site
+        run: |
+          bundle exec jekyll build
+
+      - name: Deploy to GitHub Pages
+        run: |
+          bundle exec jekyll deploy
