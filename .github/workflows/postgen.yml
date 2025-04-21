@@ -1,0 +1,34 @@
+import random
+from datetime import datetime
+
+# Random topics for posts
+topics = [
+    "Top 5 Travel Destinations 2025",
+    "How to Save Money Fast",
+    "Best Gadgets for Students",
+    "Simple Home Workouts",
+    "Top Freelance Jobs Online",
+    "How to Start Investing",
+    "Best Online Courses This Year"
+]
+
+# Pick random topic
+topic = random.choice(topics)
+date_today = datetime.now().strftime("%Y-%m-%d")
+filename = f"_posts/{date_today}-{topic.replace(' ', '-')}.md"
+
+# Basic blog post structure
+content = f"""---
+layout: post
+title: "{topic}"
+date: {date_today}
+---
+
+Welcome to today's post about **{topic}**! Stay tuned for daily updates.
+"""
+
+# Save post
+with open(filename, 'w') as f:
+    f.write(content)
+
+print(f"Generated post: {filename}")
